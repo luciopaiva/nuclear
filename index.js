@@ -39,8 +39,8 @@ class App {
         this.centerParticle.position.set(centerX, centerY);
 
         const particle = this.particles[0];
-        particle.position.set(0.7 * centerX, 0.7 * centerY);
-        particle.velocity.set(0, 0);
+        particle.position.set(0.7 * centerX, 0.8 * centerY);
+        particle.velocity.set(2, 0);
     }
 
     update() {
@@ -67,7 +67,7 @@ class App {
         const I = -8;
         const B = 1.2;
         const X = distance - 35;
-        const magnitude = X * I * B ** (- X) + 0.1;
+        const magnitude = X * I * B ** (- X) + 0.01;
         this.aux.normalize().scale(magnitude);
         particle.acceleration.set(this.aux);
     }
