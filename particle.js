@@ -3,6 +3,7 @@ import Vector from "./vector.js";
 
 const TAU = Math.PI * 2;
 const RADIUS = 8;
+const MAX_VEL = 10;
 
 export default class Particle {
 
@@ -15,6 +16,7 @@ export default class Particle {
 
     update() {
         this.velocity.add(this.acceleration);
+        this.velocity.limit(MAX_VEL);
         this.position.add(this.velocity);
     }
 
