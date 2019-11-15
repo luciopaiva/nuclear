@@ -7,7 +7,9 @@ const MAX_VEL = 2;
 
 export default class Particle {
 
-    constructor (x, y) {
+    constructor (x, y, color) {
+        this.color = color;
+
         this.position = new Vector(x, y);
         this.velocity = new Vector();
         this.acceleration = new Vector();
@@ -26,8 +28,7 @@ export default class Particle {
      */
     draw(ctx) {
         ctx.beginPath();
-        const alpha = Math.max(0.5, this.velocity.length / MAX_VEL);
-        ctx.fillStyle = `rgb(83, 133, 224, ${alpha})`;
+        ctx.fillStyle = this.color;
         ctx.ellipse(this.position.x, this.position.y, RADIUS, RADIUS, 0, 0, TAU);
         ctx.fill();
 
