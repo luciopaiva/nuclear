@@ -32,7 +32,7 @@ class App {
         this.centerParticle = new Particle(centerX, centerY);
 
         const minDimension = Math.min(this.width, this.height);
-        const minRadius = minDimension * .25;
+        const minRadius = minDimension * .3;
         const maxRadius = minDimension * .5;
 
         const NUM_PARTICLES = 200;
@@ -46,15 +46,15 @@ class App {
             const particle = new Particle(0, 0);
             particle.position.set(this.aux);
 
-            // this.aux.set(particle.position);
-            // this.aux.sub(this.centerParticle.position);
-            // this.aux.normalize();
-            //
-            // this.aux.rotate(-Math.PI).normalize();
-            // particle.velocity.set(this.aux);
+            this.aux.set(this.centerParticle.position);
+            this.aux.sub(particle.position);
+            this.aux.normalize();
+
+            this.aux.rotate(-Math.PI/2);
+            this.aux.normalize().mul(2);
+            particle.velocity.set(this.aux);
 
             this.particles[i] = particle;
-            // console.info(`Setting particle at ${x},${y}`);
         }
     }
 

@@ -31,8 +31,8 @@ export default class Particle {
         ctx.ellipse(this.position.x, this.position.y, RADIUS, RADIUS, 0, 0, TAU);
         ctx.fill();
 
-        // this.debugVector(ctx, this.velocity, "#ff0000", 10);
-        // this.debugVector(ctx, this.acceleration, "#8a2576",500);
+        // this.debugVector(ctx, this.velocity, "#d30000", 10);
+        this.debugVector(ctx, this.acceleration, "#63ba61",500);
     }
 
     /**
