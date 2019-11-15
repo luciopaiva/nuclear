@@ -35,7 +35,7 @@ class App {
         const minRadius = minDimension * .3;
         const maxRadius = minDimension * .5;
 
-        const NUM_PARTICLES = 200;
+        const NUM_PARTICLES = 300;
         this.particles = Array(NUM_PARTICLES);
         for (let i = 0; i < NUM_PARTICLES; i++) {
             const radius = minRadius + Math.random() * (maxRadius - minRadius);
