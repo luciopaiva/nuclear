@@ -3,7 +3,7 @@ import Vector from "./vector.js";
 
 const TAU = Math.PI * 2;
 const RADIUS = 8;
-const MAX_VEL = 10;
+const MAX_VEL = 2;
 
 export default class Particle {
 
@@ -32,7 +32,7 @@ export default class Particle {
         ctx.fill();
 
         this.debugVector(ctx, this.velocity, "#ff0000", 10);
-        this.debugVector(ctx, this.acceleration, "#ffff00",500);
+        this.debugVector(ctx, this.acceleration, "#8a2576",500);
     }
 
     /**

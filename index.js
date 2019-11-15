@@ -3,14 +3,17 @@ import Particle from "./particle.js";
 import {readCssVar} from "./utils.js";
 import Vector from "./vector.js";
 
+const TAU = Math.PI * 2;
+
 class App {
 
     constructor () {
         this.initializeUI();
-        this.initializeModels();
 
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
+
+        this.initializeModels();
 
         this.updateFn = this.update.bind(this);
         this.update(performance.now());
@@ -23,9 +26,39 @@ class App {
     }
 
     initializeModels() {
+        this.aux = new Vector();
+
         this.particleColor = readCssVar("particle-color");
-        this.particles = [new Particle(0, 0, this.particleColor)];
-        this.centerParticle = new Particle(0, 0, this.particleColor);
+
+        const centerX = this.width / 2;
+        const centerY = this.height / 2;
+        this.centerParticle = new Particle(centerX, centerY, this.particleColor);
+
+        const minDimension = Math.min(this.width, this.height);
+        const minRadius = minDimension * .2;
+        const maxRadius = minDimension * .4;
+
+        const NUM_PARTICLES = 100;
+        this.particles = Array(NUM_PARTICLES);
+        for (let i = 0; i < NUM_PARTICLES; i++) {
+            const radius = minRadius + Math.random() * (maxRadius - minRadius);
+            const angle = Math.random() * TAU;
+            this.aux.setPolarCoordinates(angle, radius);
+            this.aux.add(this.centerParticle.position);
+
+            const particle = new Particle(0, 0, this.particleColor);
+            particle.position.set(this.aux);
+
+            // this.aux.set(particle.position);
+            // this.aux.sub(this.centerParticle.position);
+            // this.aux.normalize();
+            //
+            // this.aux.rotate(-Math.PI).normalize();
+            // particle.velocity.set(this.aux);
+
+            this.particles[i] = particle;
+            // console.info(`Setting particle at ${x},${y}`);
+        }
     }
 
     resize() {
@@ -33,14 +66,6 @@ class App {
         this.height = window.innerHeight;
         this.canvas.setAttribute("width", this.width);
         this.canvas.setAttribute("height", this.height);
-
-        const centerX = this.width / 2;
-        const centerY = this.height / 2;
-        this.centerParticle.position.set(centerX, centerY);
-
-        const particle = this.particles[0];
-        particle.position.set(0.7 * centerX, 0.8 * centerY);
-        particle.velocity.set(2, 0);
     }
 
     update() {
@@ -56,18 +81,18 @@ class App {
         requestAnimationFrame(this.updateFn);
     }
 
-    aux = new Vector();
-
     /**
      * @param {Particle} particle
      */
     computeNuclearForce(particle) {
         Vector.subtract(this.centerParticle.position, particle.position, this.aux);
         const distance = this.aux.length;
-        const I = -8;
+        const I = -40;
         const B = 1.2;
-        const X = distance - 35;
-        const magnitude = X * I * B ** (- X) + 0.01;
+        const X = distance - 100;
+        // Use desmos to figure out how this formula works: https://www.desmos.com/calculator/ltmrialkfl
+        // I made it similar to the nuclear force: https://en.wikipedia.org/wiki/Nuclear_force
+        const magnitude = X * I * B ** (- X) + .1;
         this.aux.normalize().scale(magnitude);
         particle.acceleration.set(this.aux);
     }
