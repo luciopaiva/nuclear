@@ -35,10 +35,10 @@ class App {
         this.centerParticle = new Particle(centerX, centerY, this.particleColor);
 
         const minDimension = Math.min(this.width, this.height);
-        const minRadius = minDimension * .2;
-        const maxRadius = minDimension * .4;
+        const minRadius = minDimension * .25;
+        const maxRadius = minDimension * .5;
 
-        const NUM_PARTICLES = 100;
+        const NUM_PARTICLES = 200;
         this.particles = Array(NUM_PARTICLES);
         for (let i = 0; i < NUM_PARTICLES; i++) {
             const radius = minRadius + Math.random() * (maxRadius - minRadius);
@@ -70,7 +70,7 @@ class App {
 
     update() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        this.centerParticle.draw(this.ctx);
+        // this.centerParticle.draw(this.ctx);
         for (const particle of this.particles) {
             particle.acceleration.clear();
             this.computeNuclearForce(particle);
@@ -89,10 +89,11 @@ class App {
         const distance = this.aux.length;
         const I = -40;
         const B = 1.2;
-        const X = distance - 100;
+        const X = distance - 180;
         // Use desmos to figure out how this formula works: https://www.desmos.com/calculator/ltmrialkfl
         // I made it similar to the nuclear force: https://en.wikipedia.org/wiki/Nuclear_force
-        const magnitude = X * I * B ** (- X) + .1;
+        // There is a hack, though: the positive constant at the end. It's necessary to bring back particles going away.
+        const magnitude = X * I * B ** (- X) + .03;
         this.aux.normalize().scale(magnitude);
         particle.acceleration.set(this.aux);
     }

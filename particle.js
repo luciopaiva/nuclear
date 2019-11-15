@@ -2,7 +2,7 @@
 import Vector from "./vector.js";
 
 const TAU = Math.PI * 2;
-const RADIUS = 8;
+const RADIUS = 5;
 const MAX_VEL = 2;
 
 export default class Particle {
@@ -31,8 +31,8 @@ export default class Particle {
         ctx.ellipse(this.position.x, this.position.y, RADIUS, RADIUS, 0, 0, TAU);
         ctx.fill();
 
-        this.debugVector(ctx, this.velocity, "#ff0000", 10);
-        this.debugVector(ctx, this.acceleration, "#8a2576",500);
+        // this.debugVector(ctx, this.velocity, "#ff0000", 10);
+        // this.debugVector(ctx, this.acceleration, "#8a2576",500);
     }
 
     /**
