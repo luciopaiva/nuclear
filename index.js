@@ -28,7 +28,12 @@ class App {
         this.centerParticle = new Particle(centerX, centerY);
 
         this.rings = [
-            new Ring(this.width, this.height, this.centerParticle),
+            new Ring(this.width, this.height, this.centerParticle, 150,
+                0.35, 0.4, "#5385E0", 180, -Math.PI/2),
+            new Ring(this.width, this.height, this.centerParticle, 150,
+                0.25, 0.3, "#5385e0", 110, -Math.PI/2),
+            new Ring(this.width, this.height, this.centerParticle, 150,
+                0.1, 0.15, "#5385e0", 45, -Math.PI/2),
         ];
     }
 
