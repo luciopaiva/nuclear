@@ -2,7 +2,7 @@
 import Vector from "./vector.js";
 
 const TAU = Math.PI * 2;
-const RADIUS = 6;
+const RADIUS = 4;
 const MAX_VEL = 2;
 
 export default class Particle {
@@ -27,12 +27,12 @@ export default class Particle {
      * @param {CanvasRenderingContext2D} ctx
      */
     draw(ctx) {
-        this.drawTail(ctx, this.velocity, "#930067", 20);
+        this.drawTail(ctx, this.velocity, "#0a1c87", 20);
         // this.debugVector(ctx, this.velocity, "#2983c5", 50);
         // this.debugVector(ctx, this.acceleration, "#2983c5", 50);
 
         ctx.beginPath();
-        ctx.fillStyle = "#9c2050";  //this.color;
+        ctx.fillStyle = "#375ebe";  //this.color;
         ctx.ellipse(this.position.x, this.position.y, RADIUS, RADIUS, 0, 0, TAU);
         ctx.fill();
     }
