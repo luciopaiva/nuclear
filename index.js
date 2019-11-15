@@ -1,6 +1,5 @@
 
 import Particle from "./particle.js";
-import {readCssVar} from "./utils.js";
 import Vector from "./vector.js";
 
 const TAU = Math.PI * 2;
@@ -28,11 +27,9 @@ class App {
     initializeModels() {
         this.aux = new Vector();
 
-        this.particleColor = readCssVar("particle-color");
-
         const centerX = this.width / 2;
         const centerY = this.height / 2;
-        this.centerParticle = new Particle(centerX, centerY, this.particleColor);
+        this.centerParticle = new Particle(centerX, centerY);
 
         const minDimension = Math.min(this.width, this.height);
         const minRadius = minDimension * .25;
@@ -46,7 +43,7 @@ class App {
             this.aux.setPolarCoordinates(angle, radius);
             this.aux.add(this.centerParticle.position);
 
-            const particle = new Particle(0, 0, this.particleColor);
+            const particle = new Particle(0, 0);
             particle.position.set(this.aux);
 
             // this.aux.set(particle.position);
